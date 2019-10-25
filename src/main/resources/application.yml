@@ -1,0 +1,54 @@
+server:
+  port: 80
+  servlet:
+    context-path: /
+  tomcat:
+    uri-encoding: UTF-8
+    max-threads: 1000
+    min-spare-threads: 5
+
+spring:
+  # 数据源
+  datasource:
+    url: jdbc:mysql://39.105.109.134:3306/SpiderTourData?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: ENC(ePhkYeN9A2fRQYVqMK6uFg==)
+    password: ENC(K2pzkVVj7IQPgbvzrN7DpeD2sMd1qzDI)
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    logSlowSql: true
+    # Druid StatViewServlet配置
+    druid:
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        # 允许清空统计数据
+        reset-enable: true
+        login-username: ENC(ePhkYeN9A2fRQYVqMK6uFg==)
+        login-password:  ENC(K2pzkVVj7IQPgbvzrN7DpeD2sMd1qzDI)
+        # IP白名单 多个逗号分隔
+        allow:
+        # IP黑名单
+        deny:
+      filter:
+        stat:
+          # 显示慢sql 默认当超过3秒显示
+          log-slow-sql: true
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java
+      exclude: banner.txt
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.df.spider.modules.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+jasypt:
+  encryptor:
+    password: 8uFlqOTz9NBKgZdiF2B4kPdsHhOEXUdP
+logging:
+   level:
+    com.eth.wallet.mapper: debug

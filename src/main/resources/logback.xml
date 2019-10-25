@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- todo 测试的时候放开,日志直接输出到控制台 -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+    <pattern>
+    %d %p (%file:%line\)- %m%n
+    </pattern>
+    </encoder>
+    </appender>
+    <root level="INFO">
+    <appender-ref ref="CONSOLE" />
+    </root>
+</configuration>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.TravelMapper">
+    <insert id="addTravel" parameterType="com.example.demo.entity.Travel" useGeneratedKeys="true" keyProperty="id">
+      insert into travel (departure_time, days_of_play,
+      per_capita, cover, cover_hight,
+      cover_width, caption_title, user_id,
+      praise_points, collection_number, comment_number,
+      `character`, travel_state, browse_volume,share_number
+      )
+    values (#{travel.departureTime,jdbcType=BIGINT}, #{travel.daysOfPlay,jdbcType=INTEGER},
+      #{travel.perCapita,jdbcType=DOUBLE}, #{travel.cover,jdbcType=VARCHAR}, #{travel.coverHight,jdbcType=DOUBLE},
+      #{travel.coverWidth,jdbcType=DOUBLE}, #{travel.captionTitle,jdbcType=VARCHAR}, #{travel.userId,jdbcType=INTEGER},
+      #{travel.praisePoints,jdbcType=INTEGER}, #{travel.collectionNumber,jdbcType=INTEGER}, #{travel.commentNumber,jdbcType=INTEGER},
+      #{travel.character,jdbcType=INTEGER}, #{travel.travelState,jdbcType=INTEGER}, #{travel.browseVolume,jdbcType=INTEGER},
+      #{travel.shareNumber,jdbcType=INTEGER}
+      )
+    </insert>
+    <insert id="addPlayMethodTravel">
+        insert into play_method_travel (play_method_id, travel_id)
+        values
+        <foreach collection="list" index="index" separator="," item="item">
+            (#{item.playMethodId},#{item.travelId})
+        </foreach>
+    </insert>
+    <insert id="addSeasonInTravels">
+        insert into season_in_travel (season_id, travel_id)
+        values
+        <foreach collection="list" index="index" separator="," item="item">
+            (#{item.seasonId},#{item.travelId})
+        </foreach>
+    </insert>
+    <insert id="addTitleCatalogTravel" parameterType="com.example.demo.entity.TitleCatalogTravel"
+            useGeneratedKeys="true" keyProperty="id">
+      insert into title_catalog_travel (travel_id, title_name,`position`, travel_experience_id,position_state,address,strategy)
+      values (#{titleCatalogTravel.travelId,jdbcType=INTEGER}, #{titleCatalogTravel.titleName,jdbcType=VARCHAR},
+      #{titleCatalogTravel.position,jdbcType=INTEGER}, #{titleCatalogTravel.travelExperienceId,jdbcType=INTEGER},
+      #{titleCatalogTravel.positionState,jdbcType=INTEGER}, #{titleCatalogTravel.address,jdbcType=VARCHAR}, #{titleCatalogTravel.strategy,jdbcType=VARCHAR})
+    </insert>
+    <insert id="addTitleDetails" parameterType="com.example.demo.entity.TitleDetails" useGeneratedKeys="true"
+            keyProperty="id">
+      insert into title_details (title_catalog_travel_id, `desc`)
+       values (#{titleDetails1.titleCatalogTravelId,jdbcType=INTEGER}, #{titleDetails1.desc,jdbcType=VARCHAR})
+    </insert>
+    <insert id="addTitleTextImgs" parameterType="com.example.demo.entity.TitleTextImg">
+        insert into title_text_img (`describe`, state,width, height, img, title_details_id,txt,`position`, travel_experience_id,position_state,address,strategy)
+        values
+        <foreach collection="list" index="index" separator="," item="item">
+            ( #{item.describe,jdbcType=VARCHAR}, #{item.state,jdbcType=INTEGER},
+            #{item.width,jdbcType=DOUBLE}, #{item.height,jdbcType=DOUBLE}, #{item.img,jdbcType=VARCHAR},
+            #{item.titleDetailsId,jdbcType=INTEGER},
+            #{item.txt,jdbcType=DOUBLE},
+            #{item.position,jdbcType=INTEGER},
+            #{item.travelExperienceId,jdbcType=INTEGER},
+            #{item.positionState,jdbcType=INTEGER},
+            #{item.address,jdbcType=VARCHAR},
+            #{item.strategy,jdbcType=VARCHAR})
+        </foreach>
+    </insert>
+</mapper>
